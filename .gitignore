@@ -1,0 +1,13 @@
+.venv
+.idea
+vars
+nik/*.pyc
+nik/__pycache__
+profiles/*.pyc
+profiles/__pycache__
+api/*.pyc
+api/__pycache__
+api/v1/*.pyc
+api/v1/__pycache__
+api/v1/*/*.pyc
+api/v1/*/__pycache__
