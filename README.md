@@ -2,7 +2,7 @@
 
 Project to keep professional profiles.
 
-# Installation
+## Installation for development
 
 * clone this repository
 * Inside the nik directory, create a virtualenv. For example:
