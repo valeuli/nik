@@ -2,8 +2,8 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from profiles.models import UserProfile
 from rest_framework.validators import UniqueValidator
-from phonenumber_field.formfields import PhoneNumberField
-from django_countries.fields import CountryField
+from phonenumber_field.serializerfields import PhoneNumberField
+from django_countries.serializer_fields import CountryField
 from profiles.models import GENDER_CHOICES
 from api.v1.serializers.education import EducationSerializers
 from api.v1.serializers.experience import ExperienceSerializer
@@ -62,26 +62,27 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
-    class UserSerializers(serializers.ModelSerializer):
-        class Meta:
-            model = User
-            fields = (
-                'first_name',
-                'last_name',
-                'email',
-                'phone_number',
-                'gender',
-                'title',
-                'country',
-                'experience',
-                'education'
-            )
-        phone_number = serializers.SerializerMethodField()
-        title = serializers.SerializerMethodField()
-        gender = serializers.SerializerMethodField()
-        country = serializers.SerializerMethodField()
-        experience = ExperienceSerializer(many=True)
-        education = EducationSerializers(many=True)
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+            'phone_number',
+            'gender',
+            'title',
+            'country',
+            'experience',
+            'education'
+        )
+    phone_number = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+    gender = serializers.SerializerMethodField()
+    country = serializers.SerializerMethodField()
+    experience = ExperienceSerializer(many=True)
+    education = EducationSerializers(many=True)
 
     @staticmethod
     def get_phone_number(user):

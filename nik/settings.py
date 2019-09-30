@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # Installed apps
     'phonenumber_field',
     'django_countries',
+    'profiles'
 
 ]
 
