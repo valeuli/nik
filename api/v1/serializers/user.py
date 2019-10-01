@@ -16,33 +16,33 @@ class RegisterSerializer(serializers.ModelSerializer):
                   'password', 'phone_number', 'country', 'gender', 'title')
     
     first_name = serializers.CharField(
-        required=True, write_only=True
+        required=True,
     )
     last_name = serializers.CharField(
-        required=True, write_only=True
+        required=True,
     )
     username = serializers.CharField(
         required=True, write_only=True,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
     email = serializers.EmailField(
-        required=True, write_only=True,
+        required=True,
         validators=[UniqueValidator(queryset=User.objects.all())]
     )
     password = serializers.CharField(
         required=True, write_only=True
     )
     phone_number = PhoneNumberField(
-        required=False, write_only=True
+        required=False, source='profile.phone_number'
     )
     country = CountryField(
-        required=True, write_only=True
+        required=True, source='profile.country'
     )
     gender = serializers.ChoiceField(
-        choices=GENDER_CHOICES, required=True
+        choices=GENDER_CHOICES, required=True, source='profile.gender'
     )
     title = serializers.CharField(
-        write_only=True, required=True
+        required=True, source='profile.title'
     )
 
     def create(self, validated_data):
@@ -55,10 +55,10 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         UserProfile.objects.create(
                         user=user,
-                        country=validated_data('country'),
-                        gender=validated_data('gender'),
-                        title=validated_data('title'),
-                        phone_number=validated_data('phone_number')
+                        country=validated_data.get('profile').get('country'),
+                        gender=validated_data.get('profile').get('gender'),
+                        title=validated_data.get('profile').get('title'),
+                        phone_number=validated_data.get('profile').get('phone_number')
         )
         return user
 
