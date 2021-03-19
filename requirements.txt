@@ -4,7 +4,7 @@ django-countries==5.5
 django-phonenumber-field==3.0.1
 django-phonenumbers==1.0.1
 django-rest-framework==0.1.0
-djangorestframework==3.10.3
+djangorestframework==3.11.2
 phonenumbers==8.10.19
 psycopg2==2.8.3
 psycopg2-binary==2.8.3
